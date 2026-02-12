@@ -44,6 +44,7 @@
                     <input type="email" id="email" name="email"
                         class="mt-1 block w-full border border-gray-300 rounded shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary @error('email') border-red-500 @enderror" required
                         value="{{ old('email') }}">
+                    <p id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email address (e.g., name@example.com)</p>
                     @error('email')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -72,6 +73,68 @@
             </div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+
+            // Strict regex requiring valid TLD with at least 2 characters
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            function validateEmail() {
+                // Trim whitespace automatically
+                const email = emailInput.value.trim();
+                emailInput.value = email;
+                
+                if (email === '') {
+                    // Reset styling for empty field (required attribute will handle empty on submit)
+                    resetError();
+                    return false;
+                }
+
+                if (!emailPattern.test(email)) {
+                    showError();
+                    return false;
+                } else {
+                    resetError();
+                    return true;
+                }
+            }
+
+            function showError() {
+                // Change border to red
+                emailInput.classList.add('border-red-500');
+                emailInput.classList.remove('border-gray-300');
+                // Display error message
+                emailError.classList.remove('hidden');
+            }
+
+            function resetError() {
+                // Reset border color
+                emailInput.classList.remove('border-red-500');
+                emailInput.classList.add('border-gray-300');
+                // Hide error message
+                emailError.classList.add('hidden');
+            }
+
+            // Validate on input (instant feedback)
+            emailInput.addEventListener('input', validateEmail);
+
+            // Validate on blur
+            emailInput.addEventListener('blur', validateEmail);
+
+            // Block submission if invalid
+            form.addEventListener('submit', function(e) {
+                if (!validateEmail()) {
+                    e.preventDefault();
+                    showError();
+                    emailInput.focus();
+                }
+            });
+        });
+    </script>
 
 </body>
 

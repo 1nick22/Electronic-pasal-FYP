@@ -1,5 +1,5 @@
 <header class="bg-white shadow sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <!-- Logo -->
         <a href="{{ route('home') }}" class="text-2xl font-bold text-gray-800 flex items-center gap-2">
             <span class="text-teal-600">⚡</span> ElectronicPasal

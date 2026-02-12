@@ -31,13 +31,7 @@ class ProductController extends Controller
             }
         }
 
-        // brand filter
-        if ($request->filled('brands')) {
-            $brands = $request->query('brands');
-            if (is_array($brands)) {
-                $query->whereIn('brand', $brands);
-            }
-        }
+
 
         // price filter
         if ($request->filled('min_price')) {
@@ -69,14 +63,14 @@ class ProductController extends Controller
         $products = $query->paginate(12)->withQueryString();
         
         $categories = Category::withCount('products')->get();
-        $brands = Product::whereNotNull('brand')->distinct()->pluck('brand');
+
         
         // Determine category name for display
         $categoryName = $request->filled('category') 
             ? Category::where('slug', $request->query('category'))->value('name') ?? 'All Products'
             : 'All Products';
 
-        return view('products.index', compact('products', 'categories', 'brands', 'categoryName'));
+        return view('products.index', compact('products', 'categories', 'categoryName'));
     }
 
     public function show($id)

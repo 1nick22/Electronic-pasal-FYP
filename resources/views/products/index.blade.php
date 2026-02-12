@@ -5,78 +5,55 @@
     <form action="{{ route('product.index') }}" method="GET" class="w-full">
         <!-- Preserve existing query parameters that might be hidden if needed, usually handled by inputs -->
         
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Sidebar Filters -->
-            <aside class="w-full lg:w-1/4 space-y-8">
-                <!-- Categories -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-lg mb-4 text-gray-800">Categories</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="{{ route('product.index') }}" 
-                               class="block px-3 py-2 rounded-lg transition-colors {{ !request('category') ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-600 hover:bg-gray-50' }}">
-                                All Categories
-                            </a>
-                        </li>
-                        @foreach($categories as $category)
+        <div class="flex flex-col gap-6">
+            <!-- Top Filter Bar -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <!-- Categories (Horizontal Scroll) -->
+                    <div class="w-full md:flex-1 overflow-x-auto no-scrollbar">
+                        <ul class="flex space-x-2 items-center">
                             <li>
-                                <a href="{{ route('product.index', array_merge(request()->except('category', 'page'), ['category' => $category->slug])) }}" 
-                                   class="flex justify-between items-center px-3 py-2 rounded-lg transition-colors {{ request('category') == $category->slug ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-600 hover:bg-gray-50' }}">
-                                    <span>{{ $category->name }}</span>
-                                    <span class="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">{{ $category->products_count }}</span>
+                                <span class="text-sm font-bold text-gray-700 mr-2">Categories:</span>
+                            </li>
+                            <li>
+                                <a href="{{ route('product.index') }}" 
+                                   class="inline-block whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors {{ !request('category') ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                                    All
                                 </a>
                             </li>
-                        @endforeach
-                    </ul>
-                    <!-- Hidden input to keep category if we submit form via other inputs -->
-                    @if(request('category'))
-                        <input type="hidden" name="category" value="{{ request('category') }}">
-                    @endif
-                </div>
+                            @foreach($categories as $category)
+                                <li>
+                                    <a href="{{ route('product.index', array_merge(request()->except('category', 'page'), ['category' => $category->slug])) }}" 
+                                       class="inline-block whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors {{ request('category') == $category->slug ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                                        {{ $category->name }} <span class="ml-1 text-xs opacity-70">({{ $category->products_count }})</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @if(request('category'))
+                            <input type="hidden" name="category" value="{{ request('category') }}">
+                        @endif
+                    </div>
 
-                <!-- Price Filter -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-lg mb-4 text-gray-800">Price Range</h3>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-xs text-gray-500">Min Price</label>
-                                <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="0"
-                                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm">
-                            </div>
-                            <div>
-                                <label class="text-xs text-gray-500">Max Price</label>
-                                <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Max"
-                                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm">
-                            </div>
+                    <!-- Price Filter (Inline) -->
+                    <div class="flex items-center gap-2 flex-shrink-0 border-l border-gray-100 pl-0 md:pl-4 pt-4 md:pt-0 w-full md:w-auto border-t md:border-t-0">
+                        <span class="text-sm font-medium text-gray-600 whitespace-nowrap">Price:</span>
+                        <div class="flex items-center gap-2">
+                            <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="Min"
+                                class="w-20 px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                            <span class="text-gray-400">-</span>
+                            <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Max"
+                                class="w-20 px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                            <button type="submit" class="bg-gray-900 text-white p-2 rounded-lg hover:bg-gray-800 transition-colors" title="Apply Filter">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
                         </div>
-                        <button type="submit" class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium">
-                            Apply Filter
-                        </button>
                     </div>
                 </div>
-
-                <!-- Brand Filter -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-lg mb-4 text-gray-800">Brands</h3>
-                    <div class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-                        @forelse($brands as $brand)
-                            <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="checkbox" name="brands[]" value="{{ $brand }}" 
-                                    {{ in_array($brand, request('brands', [])) ? 'checked' : '' }}
-                                    onchange="this.form.submit()"
-                                    class="w-5 h-5 border-gray-300 rounded text-blue-600 focus:ring-blue-500 transition duration-150 ease-in-out">
-                                <span class="text-gray-600 group-hover:text-blue-600 transition-colors">{{ $brand }}</span>
-                            </label>
-                        @empty
-                            <p class="text-sm text-gray-400">No brands available</p>
-                        @endforelse
-                    </div>
-                </div>
-            </aside>
+            </div>
 
             <!-- Main Product Grid -->
-            <div class="w-full lg:w-3/4">
+            <div class="w-full">
                 <!-- Toolbar -->
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                     <div class="mb-4 sm:mb-0">
@@ -126,7 +103,7 @@
                         </h2>
                         <p class="text-gray-500 mb-6">Try adjusting your filters or search criteria.</p>
                         
-                        @if(request('search') || request('category') || request('min_price') || request('max_price') || request('brands'))
+                        @if(request('search') || request('category') || request('min_price') || request('max_price'))
                             <a href="{{ route('product.index') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                                 Clear All Filters & Search
                             </a>

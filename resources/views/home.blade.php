@@ -4,7 +4,7 @@
     <!-- Hero Section -->
     <section class="hero-overlay py-32 text-white"
         style="background-image: url('{{ asset('images/hero-bg.png') }}');">
-        <div class="container mx-auto px-4 hero-content text-center">
+        <div class="max-w-7xl mx-auto px-4 hero-content text-center">
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">Nepal’s #1 Home Appliances
                 Store – ElectronicPasal</h1>
             <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90">
@@ -21,64 +21,72 @@
     </section>
 
     <!-- Featured Categories Section -->
-    <section class="py-24 container mx-auto px-4">
+    <section class="py-24 max-w-7xl mx-auto px-4">
         <div class="flex flex-col md:flex-row justify-between items-end mb-12">
             <div>
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Top Categories in Nepal</h2>
                 <p class="text-gray-500 text-lg">Browse our most popular home appliance categories</p>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <!-- Category 1 -->
-            <div class="category-card group">
-                <div class="category-image-wrap">
-                    <img src="{{ asset('images/Refrigerator.jpg')}}"
-                        alt="Refrigerators" loading="lazy">
+            <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
+                <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
+                    <img src="{{ asset('images/fridge.jpeg')}}"
+                        alt="Refrigerators" loading="lazy" 
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
-                <div class="p-6">
+                <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold mb-1">Refrigerators</h3>
-            
-                    <p class="text-gray-500 text-sm">Energy Efficient Models</p>
-                    <a href="{{ route('product.index', ['category' => 'refrigerators']) }}" class="text-primary-color font-medium mt-4 inline-block hover:underline transition-colors">Explore &rarr;</a>
+                    <p class="text-gray-500 text-sm mb-4">Energy Efficient Models</p>
+                    <a href="{{ route('product.index', ['category' => 'refrigerators']) }}" class="text-teal-600 font-medium mt-auto inline-flex items-center hover:underline transition-colors group-hover:text-teal-700">
+                        Explore <span class="ml-1">&rarr;</span>
+                    </a>
                 </div>
             </div>
             <!-- Category 2 -->
-            <div class="category-card group">
-                <div class="category-image-wrap">
-                    <img src="{{ asset('images/washing-machine.png') }}"
-                        alt="Washing Machines" loading="lazy">
+            <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
+                <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
+                    <img src="{{ asset('images/washingmachine.jpeg') }}"
+                        alt="Washing Machines" loading="lazy"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
-                <div class="p-6">
+                <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold mb-1">Washing Machines</h3>
-                   
-                    <p class="text-gray-500 text-sm">Advanced Cleaning Tech</p>
-                    <a href="{{ route('product.index', ['category' => 'washing-machines']) }}" class="text-primary-color font-medium mt-4 inline-block hover:underline transition-colors">Explore &rarr;</a>
+                    <p class="text-gray-500 text-sm mb-4">Advanced Cleaning Tech</p>
+                    <a href="{{ route('product.index', ['category' => 'washing-machines']) }}" class="text-teal-600 font-medium mt-auto inline-flex items-center hover:underline transition-colors group-hover:text-teal-700">
+                        Explore <span class="ml-1">&rarr;</span>
+                    </a>
                 </div>
             </div>
             <!-- Category 3 -->
-            <div class="category-card group">
-                <div class="category-image-wrap">
-                    <img src="{{ asset('images/oven.png') }}" alt="Microwave Ovens"
-                        loading="lazy">
+            <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
+                <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
+                    <img src="{{ asset('images/microoven.jpeg') }}" alt="Microwave Ovens"
+                        loading="lazy"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
-                <div class="p-6">
+                <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold mb-1">Microwave Ovens</h3>
-                
-                    <p class="text-gray-500 text-sm">Modern Cooking Solutions</p>
-                    <a href="{{ route('product.index', ['category' => 'microwave-ovens']) }}" class="text-primary-color font-medium mt-4 inline-block hover:underline transition-colors">Explore &rarr;</a>
+                    <p class="text-gray-500 text-sm mb-4">Modern Cooking Solutions</p>
+                    <a href="{{ route('product.index', ['category' => 'microwave-ovens']) }}" class="text-teal-600 font-medium mt-auto inline-flex items-center hover:underline transition-colors group-hover:text-teal-700">
+                        Explore <span class="ml-1">&rarr;</span>
+                    </a>
                 </div>
             </div>
             <!-- Category 4 -->
-            <div class="category-card group">
-                <div class="category-image-wrap">
-                    <img src="{{ asset('images/smart-tv.png') }}" alt="Smart TVs"
-                        loading="lazy">
+            <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
+                <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
+                    <img src="{{ asset('images/tv.jpeg') }}" alt="Smart TVs"
+                        loading="lazy"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
-                <div class="p-6">
+                <div class="p-6 flex flex-col flex-grow">
                     <h3 class="text-xl font-bold mb-1">Smart TVs</h3>
-                   
-                    <p class="text-gray-500 text-sm">Immersive 4K Experience</p>
-                    <a href="{{ route('product.index', ['category' => 'smart-tvs']) }}" class="text-primary-color font-medium mt-4 inline-block hover:underline transition-colors">Explore &rarr;</a>
+                    <p class="text-gray-500 text-sm mb-4">Immersive 4K Experience</p>
+                    <a href="{{ route('product.index', ['category' => 'smart-tvs']) }}" class="text-teal-600 font-medium mt-auto inline-flex items-center hover:underline transition-colors group-hover:text-teal-700">
+                        Explore <span class="ml-1">&rarr;</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -86,7 +94,7 @@
 
     <!-- Today's Best Deals Section -->
     <section id="deals" class="py-24 bg-gray-100">
-        <div class="container mx-auto px-4">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Today’s Best Deals</h2>
                 <p class="text-gray-500 text-lg max-w-2xl mx-auto">Don't miss out on these limited-time
@@ -180,7 +188,7 @@
 
     <!-- Why ElectronicPasal Section -->
     <section class="py-24 bg-trust-section">
-        <div class="container mx-auto px-4">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-20">
                 <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Why Choose
                     ElectronicPasal?</h2>

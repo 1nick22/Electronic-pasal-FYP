@@ -86,7 +86,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('contact') }}" method="POST" class="space-y-5">
+                    <form id="contact-form" action="{{ route('contact') }}" method="POST" class="space-y-5">
                         @csrf
 
                         <!-- Name -->
@@ -104,6 +104,7 @@
                             <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('email') border-red-500 @enderror">
+                            <p id="email-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid email address (e.g., name@example.com)</p>
                             @error('email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -130,8 +131,8 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" 
-                            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 transform hover:scale-[1.02] transition-all duration-200 shadow-lg">
+                        <button type="submit" id="submit-btn"
+                            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 transform hover:scale-[1.02] transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
                             Send Message
                         </button>
                     </form>
@@ -141,3 +142,71 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Regex for strict email validation
+        // user name section: allow dots, underscores, plus, hyphens
+        // @ symbol
+        // domain name section: allow hyphens
+        // . symbol
+        // extension: 2 or more letters
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        function validateEmail() {
+            // Trim whitespace automatically
+            const email = emailInput.value.trim();
+            emailInput.value = email;
+            
+            if (email === '') {
+                // Reset styling for empty field (required attribute will handle empty on submit)
+                resetError();
+                return false;
+            }
+
+            if (!emailPattern.test(email)) {
+                showError();
+                return false;
+            } else {
+                resetError();
+                return true;
+            }
+        }
+
+        function showError() {
+            emailInput.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+            emailInput.classList.remove('border-gray-300', 'focus:ring-blue-500', 'focus:border-transparent');
+            emailError.classList.remove('hidden');
+            submitBtn.disabled = true;
+        }
+
+        function resetError() {
+            emailInput.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+            emailInput.classList.add('border-gray-300', 'focus:ring-blue-500', 'focus:border-transparent');
+            emailError.classList.add('hidden');
+            submitBtn.disabled = false;
+        }
+
+        // Validate on input
+        emailInput.addEventListener('input', validateEmail);
+
+        // Validate on blur (when user leaves the field)
+        emailInput.addEventListener('blur', validateEmail);
+
+        // Prevent submission if invalid
+        form.addEventListener('submit', function(e) {
+            if (!validateEmail()) {
+                e.preventDefault();
+                showError(); // Ensure error is visible
+                emailInput.focus();
+            }
+        });
+    });
+</script>
+@endpush
