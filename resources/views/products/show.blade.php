@@ -99,12 +99,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Related Products Placeholder -->
-    <div class="max-w-6xl mx-auto mt-16 mb-8 px-4">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">You might also like</h2>
-        <!-- Related products grid would go here -->
-    </div>
 </div>
 
 <script>

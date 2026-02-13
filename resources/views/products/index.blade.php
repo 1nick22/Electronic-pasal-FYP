@@ -113,10 +113,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($products as $product)
                             <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                                <div class="relative h-64 bg-gray-50 p-6 flex items-center justify-center">
-                                    <img src="{{ asset($product->image) }}" 
-                                         alt="{{ $product->name }}" 
-                                         class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300">
+                                <!-- Fixed Aspect Ratio Image Container -->
+                                <div class="relative aspect-[4/5] overflow-hidden">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <img src="{{ asset($product->image) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300">
+                                    </div>
                                     
                                     @if($product->stock <= 0)
                                         <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
