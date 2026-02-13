@@ -145,10 +145,16 @@
                                         <div class="flex items-center justify-between mb-4">
                                             <span class="text-xl font-bold text-gray-900">Rs. {{ number_format($product->price) }}</span>
                                         </div>
-                                        <a href="{{ route('product.show', $product->id) }}" 
-                                           class="block w-full text-center bg-gray-900 text-white py-2.5 rounded-xl font-medium hover:bg-blue-600 shadow-lg shadow-gray-200 hover:shadow-blue-200 transition-all duration-300 transform active:scale-95">
-                                            View Details
-                                        </a>
+                                        <div class="flex flex-col gap-2.5">
+                                            <a href="{{ route('product.show', $product->id) }}" 
+                                               class="block w-full text-center bg-gray-900 text-white py-2.5 rounded-xl font-medium hover:bg-blue-600 shadow-lg shadow-gray-200 hover:shadow-blue-200 transition-all duration-300 transform active:scale-95">
+                                                View Details
+                                            </a>
+                                            <button type="button" 
+                                                    class="w-full text-center bg-transparent text-blue-600 border border-blue-600 py-2.5 rounded-xl font-medium hover:bg-blue-50 transition-all duration-300 transform active:scale-95">
+                                                Add to Cart
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
