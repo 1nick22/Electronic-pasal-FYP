@@ -87,7 +87,7 @@
                         </div>
 
                         <!-- Add to Cart Button -->
-                        <button type="button" 
+                        <button type="button" onclick="handleAddToCart(event)"
                             class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200 transition-all transform active:scale-95 shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>

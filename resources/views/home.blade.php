@@ -117,7 +117,7 @@
                             <span class="price-new">Rs. 45,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
                             <a href="{{ route('product.index', ['category' => 'refrigerators']) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
@@ -137,7 +137,7 @@
                             <span class="price-new">Rs. 38,500</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
                             <a href="{{ route('product.index', ['category' => 'washing-machines']) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
@@ -156,7 +156,7 @@
                             <span class="price-new">Rs. 12,499</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
                             <a href="{{ route('product.index', ['category' => 'microwave-ovens']) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
@@ -175,7 +175,7 @@
                             <span class="price-new">Rs. 62,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
                             <a href="{{ route('product.index', ['category' => 'smart-tvs']) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>

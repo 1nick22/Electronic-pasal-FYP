@@ -49,6 +49,8 @@
                         <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-teal-600 font-medium transition whitespace-nowrap">Dashboard</a>
                         <a href="{{ route('admin.products.index') }}" class="text-gray-600 hover:text-teal-600 font-medium transition whitespace-nowrap">Manage Products</a>
                     @endif
+
+                    {{-- Logout button --}}
                     <form action="{{ route('logout') }}" method="POST" class="inline m-0">
                         @csrf
                         <button type="submit" class="flex items-center text-red-500 hover:text-red-700 font-medium transition whitespace-nowrap">
@@ -58,6 +60,14 @@
                             Logout
                         </button>
                     </form>
+
+                    {{-- Vertical separator with 20px breathing room --}}
+                    <div style="width:1px; height:1.25rem; background:#d1d5db; margin-left:20px; margin-right:20px; flex-shrink:0;"></div>
+
+                    {{-- Personalized greeting (no icon) --}}
+                    <span class="text-sm text-gray-600 font-normal whitespace-nowrap">
+                        Welcome back, <span class="font-semibold text-gray-800">{{ Auth::user()->first_name }}</span>
+                    </span>
                 @endauth
             </div>
         </div>

@@ -153,7 +153,7 @@
                                                class="block w-full text-center bg-gray-900 text-white py-2.5 rounded-xl font-medium hover:bg-blue-600 shadow-lg shadow-gray-200 hover:shadow-blue-200 transition-all duration-300 transform active:scale-95">
                                                 View Details
                                             </a>
-                                            <button type="button" 
+                                            <button type="button" onclick="handleAddToCart(event)"
                                                     class="w-full text-center bg-transparent text-blue-600 border border-blue-600 py-2.5 rounded-xl font-medium hover:bg-blue-50 transition-all duration-300 transform active:scale-95">
                                                 Add to Cart
                                             </button>
