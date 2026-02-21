@@ -32,7 +32,7 @@
             <!-- Category 1 -->
             <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
                 <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
-                    <img src="{{ asset('images/fridge.jpeg')}}"
+                    <img src="{{ asset('images/fridge.png')}}"
                         alt="Refrigerators" loading="lazy" 
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
@@ -47,7 +47,7 @@
             <!-- Category 2 -->
             <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
                 <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
-                    <img src="{{ asset('images/washingmachine.jpeg') }}"
+                    <img src="{{ asset('images/washingmachine.png') }}"
                         alt="Washing Machines" loading="lazy"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
@@ -62,7 +62,7 @@
             <!-- Category 3 -->
             <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
                 <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
-                    <img src="{{ asset('images/microoven.jpeg') }}" alt="Microwave Ovens"
+                    <img src="{{ asset('images/microoven.png') }}" alt="Microwave Ovens"
                         loading="lazy"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
@@ -77,7 +77,7 @@
             <!-- Category 4 -->
             <div class="group border border-gray-200 bg-white rounded-2xl overflow-hidden hover:shadow-lg hover:border-teal-600 transition-all duration-300 flex flex-col h-full">
                 <div class="aspect-[4/3] w-full bg-gray-100 relative overflow-hidden">
-                    <img src="{{ asset('images/tv.jpeg') }}" alt="Smart TVs"
+                    <img src="{{ asset('images/tv.png') }}" alt="Smart TVs"
                         loading="lazy"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
@@ -104,7 +104,7 @@
                 <!-- Deal Card -->
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/refrigerator.png') }}"
+                        <img src="{{ asset('images/Premium Double-Door Smart Refrigerator.png') }}"
                             alt="Smart Fridge" class="w-full h-full object-contain p-4" loading="lazy">
                         <div
                             class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-5 transition-all">
@@ -127,7 +127,7 @@
                 <!-- Repeat 3 more times with different images -->
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/washing-machine.png') }}"
+                        <img src="{{ asset('images/Front-load Turbo Clean Washing Machine.png') }}"
                             alt="Turbo Washer" class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/oven.png') }}" alt="Digital Oven"
+                        <img src="{{ asset('images/Multi-function Digital Microwave.png') }}" alt="Digital Oven"
                             class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
@@ -165,7 +165,7 @@
                 </div>
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/smart-tv.png') }}"
+                        <img src="{{ asset('images/55" Ultra HD 4K Android Smart TV.png') }}"
                             alt="4K Android TV" class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
