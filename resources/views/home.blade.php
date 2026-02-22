@@ -117,8 +117,8 @@
                             <span class="price-new">Rs. 45,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
-                            <a href="{{ route('product.index', ['category' => 'refrigerators']) }}"
+                            <button onclick="handleAddToCart(event)" data-product-id="29" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <a href="{{ route('product.show', 29) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
                         </div>
@@ -137,8 +137,8 @@
                             <span class="price-new">Rs. 38,500</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
-                            <a href="{{ route('product.index', ['category' => 'washing-machines']) }}"
+                            <button onclick="handleAddToCart(event)" data-product-id="30" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <a href="{{ route('product.show', 30) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
                         </div>
@@ -156,8 +156,8 @@
                             <span class="price-new">Rs. 12,499</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
-                            <a href="{{ route('product.index', ['category' => 'microwave-ovens']) }}"
+                            <button onclick="handleAddToCart(event)" data-product-id="31" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <a href="{{ route('product.show', 31) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
                         </div>
@@ -175,8 +175,8 @@
                             <span class="price-new">Rs. 62,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
-                            <a href="{{ route('product.index', ['category' => 'smart-tvs']) }}"
+                            <button onclick="handleAddToCart(event)" data-product-id="32" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <a href="{{ route('product.show', 32) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
                         </div>
