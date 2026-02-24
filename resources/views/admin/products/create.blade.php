@@ -39,26 +39,15 @@
                 </select>
             </div>
 
-            <!-- Price, Stock & Rating Row -->
+            <!-- Price & Stock Row -->
             <div class="flex gap-4 mb-4">
-                <div class="w-1/3">
+                <div class="w-1/2">
                     <label for="price" class="block text-gray-700 font-bold mb-2">Price (Rs.)</label>
                     <input type="number" name="price" id="price" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('price') }}" step="0.01" min="0" required>
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2">
                     <label for="stock" class="block text-gray-700 font-bold mb-2">Stock Quantity</label>
                     <input type="number" name="stock" id="stock" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('stock', 0) }}" min="0" required>
-                </div>
-                <div class="w-1/3">
-                    <label for="rating" class="block text-gray-700 font-bold mb-2">Rating (Stars)</label>
-                    <select name="rating" id="rating" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select Rating</option>
-                        <option value="1" {{ old('rating') == '1' ? 'selected' : '' }}>1 Star</option>
-                        <option value="2" {{ old('rating') == '2' ? 'selected' : '' }}>2 Stars</option>
-                        <option value="3" {{ old('rating') == '3' ? 'selected' : '' }}>3 Stars</option>
-                        <option value="4" {{ old('rating') == '4' ? 'selected' : '' }}>4 Stars</option>
-                        <option value="5" {{ old('rating') == '5' ? 'selected' : '' }}>5 Stars</option>
-                    </select>
                 </div>
             </div>
 

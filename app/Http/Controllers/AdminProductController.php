@@ -40,7 +40,6 @@ class AdminProductController extends Controller
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'rating' => 'nullable|numeric|min:1|max:5',
         ]);
 
         $data = $request->all();
@@ -86,7 +85,6 @@ class AdminProductController extends Controller
             'stock' => 'required|integer|min:0',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'rating' => 'nullable|numeric|min:1|max:5',
         ]);
 
         $data = $request->except(['image']);
