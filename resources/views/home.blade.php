@@ -112,7 +112,7 @@
                     </div>
                     <div class="p-6 flex-grow">
                         <div class="mb-2">
-                            <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider">{{ $dealProducts[29]->brand ?? 'Generic' }}</p>
+                            <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider">{{ $dealProducts[33]->brand ?? 'Generic' }}</p>
                         </div>
                         <h3 class="font-bold text-lg mb-2 line-clamp-2">Premium Double-Door Smart
                             Refrigerator</h3>
@@ -120,8 +120,8 @@
                             <span class="price-new">Rs. 45,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" data-product-id="29" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
-                            <a href="{{ route('product.show', 29) }}"
+                            <button onclick="handleAddToCart(event)" data-product-id="33" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <a href="{{ route('product.show', 33) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
                         </div>

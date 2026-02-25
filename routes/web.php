@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
-    $dealProducts = \App\Models\Product::whereIn('id', [29, 30, 31, 32])->get()->keyBy('id');
+    $dealProducts = \App\Models\Product::whereIn('id', [33, 30, 31, 32])->get()->keyBy('id');
     return view('home', compact('dealProducts'));
 })->name('home');
 
