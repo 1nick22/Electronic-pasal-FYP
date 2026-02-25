@@ -39,6 +39,12 @@
                 </select>
             </div>
 
+            <!-- Brand -->
+            <div class="mb-4">
+                <label for="brand" class="block text-gray-700 font-bold mb-2">Brand</label>
+                <input type="text" name="brand" id="brand" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ old('brand') }}">
+            </div>
+
             <!-- Price & Stock Row -->
             <div class="flex gap-4 mb-4">
                 <div class="w-1/2">

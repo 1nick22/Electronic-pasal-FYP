@@ -111,6 +111,9 @@
                         </div>
                     </div>
                     <div class="p-6 flex-grow">
+                        <div class="mb-2">
+                            <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider">{{ $dealProducts[29]->brand ?? 'Generic' }}</p>
+                        </div>
                         <h3 class="font-bold text-lg mb-2 line-clamp-2">Premium Double-Door Smart
                             Refrigerator</h3>
                         <div class="flex items-end gap-3 mb-6">
@@ -131,6 +134,9 @@
                             alt="Turbo Washer" class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
+                        <div class="mb-2">
+                            <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider">{{ $dealProducts[30]->brand ?? 'Generic' }}</p>
+                        </div>
                         <h3 class="font-bold text-lg mb-2 line-clamp-2">Front-load Turbo Clean Washing
                             Machine</h3>
                         <div class="flex items-end gap-3 mb-6">
@@ -150,6 +156,9 @@
                             class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
+                        <div class="mb-2">
+                            <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider">{{ $dealProducts[31]->brand ?? 'Generic' }}</p>
+                        </div>
                         <h3 class="font-bold text-lg mb-2 line-clamp-2">Multi-function Digital Microwave
                             Oven</h3>
                         <div class="flex items-end gap-3 mb-6">
@@ -169,6 +178,9 @@
                             alt="4K Android TV" class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
+                        <div class="mb-2">
+                            <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider">{{ $dealProducts[32]->brand ?? 'Generic' }}</p>
+                        </div>
                         <h3 class="font-bold text-lg mb-2 line-clamp-2">55" Ultra HD 4K Android Smart TV
                         </h3>
                         <div class="flex items-end gap-3 mb-6">

@@ -6,7 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
-    return view('home');
+    $dealProducts = \App\Models\Product::whereIn('id', [29, 30, 31, 32])->get()->keyBy('id');
+    return view('home', compact('dealProducts'));
 })->name('home');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
