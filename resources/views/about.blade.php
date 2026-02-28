@@ -100,8 +100,8 @@
                             for bringing the latest global innovations to Nepali households.
                         </p>
                         <p class="text-lg text-gray-600 leading-relaxed mb-8">
-                            We specialize in curated selections of high-performance **ovens, microwaves,
-                            refrigerators, and washing machines** from world-renowned brands. Every product in
+                            We specialize in curated selections of high-performance ovens, microwaves,
+                            refrigerators, and washing machines from world renowned brands. Every product in
                             our catalog undergoes rigorous quality checks to ensure it meets our standards of
                             durability and efficiency.
                         </p>

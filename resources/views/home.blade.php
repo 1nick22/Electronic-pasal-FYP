@@ -104,7 +104,7 @@
                 <!-- Deal Card -->
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/Premium Double-Door Smart Refrigerator.png') }}"
+                        <img src="{{ asset($dealProducts[33]->image) }}"
                             alt="Smart Fridge" class="w-full h-full object-contain p-4" loading="lazy">
                         <div
                             class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-5 transition-all">
@@ -130,7 +130,7 @@
                 <!-- Repeat 3 more times with different images -->
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/Front-load Turbo Clean Washing Machine.png') }}"
+                        <img src="{{ asset($dealProducts[30]->image) }}"
                             alt="Turbo Washer" class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/Multi-function Digital Microwave.png') }}" alt="Digital Oven"
+                        <img src="{{ asset($dealProducts[31]->image) }}" alt="Digital Oven"
                             class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
@@ -174,7 +174,7 @@
                 </div>
                 <div class="product-card bg-white rounded-2xl shadow-md overflow-hidden flex flex-col">
                     <div class="relative h-64">
-                        <img src="{{ asset('images/55" Ultra HD 4K Android Smart TV.png') }}"
+                        <img src="{{ asset($dealProducts[32]->image) }}"
                             alt="4K Android TV" class="w-full h-full object-contain p-4" loading="lazy">
                     </div>
                     <div class="p-6 flex-grow">
