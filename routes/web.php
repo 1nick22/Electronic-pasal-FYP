@@ -21,6 +21,13 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+use App\Http\Controllers\CartController;
+
+Route::middleware('auth')->group(function () {
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+});
+
 use App\Http\Controllers\ContactController;
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');

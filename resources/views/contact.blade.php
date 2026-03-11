@@ -6,7 +6,7 @@
 <div class="bg-gradient-to-br from-blue-50 to-indigo-50 py-16">
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
-            <!-- Header -->
+            <!-- Header  -->
             <div class="text-center mb-12">
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h1>
                 <p class="text-lg text-gray-600">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>

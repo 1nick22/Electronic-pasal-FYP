@@ -9,7 +9,7 @@ class User extends Authenticatable
     // Use your existing 'users' table
     protected $table = 'users';
 
-    // Columns you can mass assign
+    // Columns I can mass assign
     protected $fillable = [
         'first_name',
         'last_name',
@@ -18,7 +18,7 @@ class User extends Authenticatable
         'role',
     ];
 
-    // Disable timestamps since you only have created_at
+    // Disable timestamps since I only have created_at
     public $timestamps = false;
 
 
@@ -30,4 +30,9 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
 }
