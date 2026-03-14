@@ -22,7 +22,11 @@ class CartController extends Controller
         
         $cartItems = $cart ? $cart->items : collect();
         
-        return view('cart.index', compact('cartItems'));
+        $cartTotal = $cartItems->sum(function ($item) {
+            return $item->price * $item->quantity;
+        });
+        
+        return view('cart.index', compact('cartItems', 'cartTotal'));
     }
 
     /**
@@ -58,5 +62,42 @@ class CartController extends Controller
             
             return redirect()->back()->with('success', 'Product added to cart successfully.');
         }
+    }
+
+    /**
+     * Update the quantity of a cart item.
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $user = Auth::user();
+        
+        $cartItem = CartItem::whereHas('cart', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->findOrFail($id);
+
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+
+        return redirect()->back()->with('success', 'Cart quantity updated.');
+    }
+
+    /**
+     * Remove an item from the cart.
+     */
+    public function remove($id)
+    {
+        $user = Auth::user();
+        
+        $cartItem = CartItem::whereHas('cart', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->findOrFail($id);
+
+        $cartItem->delete();
+
+        return redirect()->back()->with('success', 'Item removed from cart.');
     }
 }
