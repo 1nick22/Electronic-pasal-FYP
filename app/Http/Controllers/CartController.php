@@ -47,7 +47,7 @@ class CartController extends Controller
 
         if ($cartItem) {
             // Increment the quantity
-            $cartItem->quantity += 1;
+            $cartItem->quantity += $request->input('quantity', 1);
             $cartItem->save();
             
             return redirect()->back()->with('success', 'Product quantity updated in cart.');
@@ -56,7 +56,7 @@ class CartController extends Controller
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $product->id,
-                'quantity' => 1,
+                'quantity' => $request->input('quantity', 1),
                 'price' => $product->price,
             ]);
             

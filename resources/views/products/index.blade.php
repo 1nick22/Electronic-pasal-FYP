@@ -145,10 +145,13 @@
                                                class="block w-full text-center bg-gray-900 text-white py-2.5 rounded-xl font-medium hover:bg-blue-600 shadow-lg shadow-gray-200 hover:shadow-blue-200 transition-all duration-300 transform active:scale-95">
                                                 View Details
                                             </a>
-                                            <button type="button" onclick="handleAddToCart(event)"
-                                                    class="w-full text-center bg-transparent text-blue-600 border border-blue-600 py-2.5 rounded-xl font-medium hover:bg-blue-50 transition-all duration-300 transform active:scale-95">
-                                                Add to Cart
-                                            </button>
+                                            <form action="{{ route('cart.add', $product->id) }}" method="POST" onsubmit="return handleAddToCart(event)" class="w-full">
+                                                @csrf
+                                                <button type="submit"
+                                                        class="w-full text-center bg-transparent text-blue-600 border border-blue-600 py-2.5 rounded-xl font-medium hover:bg-blue-50 transition-all duration-300 transform active:scale-95">
+                                                    Add to Cart
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

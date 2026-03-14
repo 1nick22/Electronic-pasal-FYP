@@ -62,7 +62,7 @@
 
                 <!-- Actions: Quantity & Add to Cart -->
                 <div class="pt-6 border-t border-gray-100">
-                    <form action="#" method="POST" class="flex flex-col items-start gap-4">
+                    <form action="{{ route('cart.add', $product->id) }}" method="POST" onsubmit="return handleAddToCart(event)" class="flex flex-col items-start gap-4">
                         @csrf
                         
                         <!-- Quantity Stepper -->
@@ -88,7 +88,7 @@
 
                         <!-- Add to Cart Button -->
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="button" onclick="handleAddToCart(event)" data-product-id="{{ $product->id }}"
+                        <button type="submit" data-product-id="{{ $product->id }}"
                             class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200 transition-all transform active:scale-95 shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>

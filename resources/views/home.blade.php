@@ -120,7 +120,10 @@
                             <span class="price-new">Rs. 45,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" data-product-id="33" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <form action="{{ route('cart.add', 33) }}" method="POST" onsubmit="return handleAddToCart(event)">
+                                @csrf
+                                <button type="submit" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            </form>
                             <a href="{{ route('product.show', 33) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
@@ -143,7 +146,10 @@
                             <span class="price-new">Rs. 38,500</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" data-product-id="30" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <form action="{{ route('cart.add', 30) }}" method="POST" onsubmit="return handleAddToCart(event)">
+                                @csrf
+                                <button type="submit" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            </form>
                             <a href="{{ route('product.show', 30) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
@@ -165,7 +171,10 @@
                             <span class="price-new">Rs. 12,499</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" data-product-id="31" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <form action="{{ route('cart.add', 31) }}" method="POST" onsubmit="return handleAddToCart(event)">
+                                @csrf
+                                <button type="submit" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            </form>
                             <a href="{{ route('product.show', 31) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>
@@ -187,7 +196,10 @@
                             <span class="price-new">Rs. 62,999</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <button onclick="handleAddToCart(event)" data-product-id="32" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            <form action="{{ route('cart.add', 32) }}" method="POST" onsubmit="return handleAddToCart(event)">
+                                @csrf
+                                <button type="submit" class="btn-primary w-full py-2 rounded-lg">Add to Cart</button>
+                            </form>
                             <a href="{{ route('product.show', 32) }}"
                                 class="btn-outline w-center text-sm py-2 rounded-lg text-center font-semibold">View
                                 Details</a>

@@ -20,13 +20,24 @@
 
             <!-- Action Buttons (Right) -->
             <div class="flex items-center justify-end gap-4">
+                @php
+                    $cartCount = 0;
+                    if(Auth::check()) {
+                        $cart = \App\Models\Cart::where('user_id', Auth::id())->first();
+                        $cartCount = $cart ? $cart->items->sum('quantity') : 0;
+                    }
+                @endphp
                 <!-- Shopping Cart Icon with Badge (Visible to all users) -->
-                <a href="#" class="relative flex items-center text-gray-600 hover:text-teal-600 font-medium transition">
+                <a href="{{ Auth::check() ? route('cart.index') : route('login') }}" class="relative flex items-center text-gray-600 hover:text-teal-600 font-medium transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     <!-- Notification Badge -->
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    @if($cartCount > 0)
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ $cartCount }}</span>
+                    @else
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    @endif
                 </a>
                 
                 @guest
