@@ -3,9 +3,6 @@
 @section('title', 'Your Cart – ElectronicPasal')
 
 @section('content')
-<!-- Add Bootstrap CSS specifically for the cart page as requested -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <div class="container my-5" style="min-height: 60vh;">
     <h2 class="mb-4 fw-bold">Shopping Cart</h2>
 
@@ -109,7 +106,4 @@
         </div>
     @endif
 </div>
-
-<!-- Bootstrap JS for dismissible alerts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
