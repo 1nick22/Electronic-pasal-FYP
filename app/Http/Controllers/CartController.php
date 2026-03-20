@@ -116,6 +116,13 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
 
+        // Stock validation — check all items before proceeding
+        foreach ($cart->items as $item) {
+            if ($item->product->quantity < $item->quantity) {
+                return redirect()->back()->with('error', 'Not enough stock for ' . $item->product->name . '.');
+            }
+        }
+
         $totalPrice = $cart->items->sum(function ($item) {
             return $item->price * $item->quantity;
         });
