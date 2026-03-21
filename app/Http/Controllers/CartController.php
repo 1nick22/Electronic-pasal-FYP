@@ -118,7 +118,7 @@ class CartController extends Controller
 
         // Stock validation — check all items before proceeding
         foreach ($cart->items as $item) {
-            if ($item->product->quantity < $item->quantity) {
+            if ($item->product->stock < $item->quantity) {
                 return redirect()->back()->with('error', 'Not enough stock for ' . $item->product->name . '.');
             }
         }
@@ -141,7 +141,7 @@ class CartController extends Controller
                 'price'      => $item->price,
             ]);
 
-            $item->product->decrement('quantity', $item->quantity);
+            $item->product->decrement('stock', $item->quantity);
         }
 
         $cart->items()->delete();

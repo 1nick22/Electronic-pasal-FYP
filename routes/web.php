@@ -22,12 +22,15 @@ Route::get('/about', function () {
 })->name('about');
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 use App\Http\Controllers\ContactController;
@@ -54,8 +57,10 @@ Route::get('dashboard', [AdminController::class, 'index'])->middleware(['auth', 
 
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminContactController;
+use App\Http\Controllers\AdminOrderController;
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
+    Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::resource('products', AdminProductController::class);
     
     // Contact Messages

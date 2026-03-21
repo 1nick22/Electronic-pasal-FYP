@@ -30,8 +30,8 @@
         </div>
     </div>
 
-    <!-- Total Orders Card (Placeholder) -->
-    <div class="bg-white rounded-lg shadow p-6 flex items-center">
+    <!-- Total Orders Card -->
+    <a href="{{ route('admin.orders.index') }}" class="bg-white rounded-lg shadow p-6 flex items-center hover:bg-gray-50 transition cursor-pointer">
         <div class="p-3 rounded-full bg-purple-100 text-purple-500 mr-4">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
@@ -39,10 +39,10 @@
         </div>
         <div>
             <p class="text-sm font-medium text-gray-500">Total Orders</p>
-            <p class="text-2xl font-bold text-gray-800">{{ $totalOrders }}</p>
-            <span class="text-xs text-gray-400 block mt-1">(Coming Soon)</span>
+            <p class="text-2xl font-bold text-gray-800">{{ \App\Models\Order::count() }}</p>
+            <span class="text-xs text-blue-500 font-medium block mt-1 hover:underline">View All Orders &rarr;</span>
         </div>
-    </div>
+    </a>
 </div>
 
 <!-- Recent Products Section -->
