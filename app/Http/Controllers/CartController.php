@@ -130,7 +130,7 @@ class CartController extends Controller
         $order = Order::create([
             'user_id'     => $user->id,
             'total_price' => $totalPrice,
-            'status'      => 'paid',
+            'status'      => 'pending',
         ]);
 
         foreach ($cart->items as $item) {
