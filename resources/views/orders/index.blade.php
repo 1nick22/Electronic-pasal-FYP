@@ -60,7 +60,7 @@
                             <form action="{{ route('khalti.initiate') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                <button type="submit" 
+                                <button type="submit"
                                     class="inline-block bg-purple-600 text-white px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-purple-700 transition-colors">
                                     Pay with Khalti
                                 </button>
