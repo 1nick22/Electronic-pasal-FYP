@@ -53,6 +53,20 @@
                                 </span>
                             </p>
                         </div>
+
+                        @if($order->status === 'pending')
+                        <div>
+                            <span class="text-sm text-gray-500">Action</span>
+                            <form action="{{ route('khalti.initiate') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                <button type="submit" 
+                                    class="inline-block bg-purple-600 text-white px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-purple-700 transition-colors">
+                                    Pay with Khalti
+                                </button>
+                            </form>
+                        </div>
+                        @endif
                     </div>
 
                     {{-- Order Items --}}

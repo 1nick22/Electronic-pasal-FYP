@@ -23,6 +23,7 @@ Route::get('/about', function () {
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\KhaltiController;
 
 Route::middleware('auth')->group(function () {
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
@@ -31,6 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+
+    // Khalti Routes
+    Route::post('/khalti/initiate', [KhaltiController::class, 'initiate'])->name('khalti.initiate');
+    Route::get('/khalti/success', [KhaltiController::class, 'success'])->name('khalti.success');
+    Route::get('/khalti/failure', [KhaltiController::class, 'failure'])->name('khalti.failure');
 });
 
 use App\Http\Controllers\ContactController;
