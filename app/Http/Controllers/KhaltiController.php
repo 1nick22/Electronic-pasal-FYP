@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\Order;
+use App\Models\Payment;
 
 class KhaltiController extends Controller
 {
@@ -61,14 +62,25 @@ class KhaltiController extends Controller
     $data = $response->json();
 
     if ($response->successful() && isset($data['status']) && $data['status'] === 'Completed') {
-        
+
         // Use the $orderId we got from the Request query
         $order = Order::find($orderId);
-        
+
         if ($order) {
             $order->update([
                 'status' => 'paid',
-                'pidx' => $pidx
+                'pidx'   => $pidx,
+            ]);
+
+            Payment::create([
+                'user_id'              => $order->user_id,
+                'order_id'             => $order->id,
+                'pidx'                 => $pidx,
+                'transaction_id'       => $data['transaction_id'] ?? null,
+                'amount'               => $order->total_price,
+                'purchase_order_name'  => 'ElectronicPasal Order #' . $order->id,
+                'status'               => 'completed',
+                'paid_at'              => now(),
             ]);
         }
 
