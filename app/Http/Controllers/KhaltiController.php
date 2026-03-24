@@ -4,69 +4,82 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use App\Models\Order;
-use App\Models\OrderItem;
 
 class KhaltiController extends Controller
 {
+    private function getSecretKey()
+    {
+        return env('KHALTI_SANDBOX_SECRET_KEY');
+    }
+
+    private function getBaseUrl()
+    {
+        return env('KHALTI_BASE_URL', 'https://a.khalti.com/api/v2/');
+    }
+
     public function initiate(Request $request)
     {
-        $orderId = $request->order_id;
-        $order = Order::find($orderId);
-
-        if (!$order) {
-            return back()->with('error', 'Order not found');
-        }
+        $order = Order::findOrFail($request->order_id);
 
         $response = Http::withHeaders([
-            'Authorization' => 'Key ' . env('KHALTI_SECRET_KEY'),
+            'Authorization' => 'Key ' . $this->getSecretKey(),
             'Content-Type' => 'application/json',
-        ])->post('https://dev.khalti.com/api/v2/epayment/initiate/', [
+        ])->post($this->getBaseUrl() . 'epayment/initiate/', [
             "return_url" => route('khalti.success'),
             "website_url" => url('/'),
-            "amount" => $order->total_price * 100,
-            "purchase_order_id" => $order->id,
-            "purchase_order_name" => "Order #" . $order->id,
+            "amount" => $order->total_price * 100, // paisa
+            "purchase_order_id" => (string)$order->id, // cast to string
+            "purchase_order_name" => "ElectronicPasal Order #" . $order->id,
         ]);
 
         $data = $response->json();
 
-        if (isset($data['payment_url'])) {
+        if ($response->successful() && isset($data['payment_url'])) {
             return redirect($data['payment_url']);
         }
 
-        return back()->with('error', 'Payment initiation failed');
+        Log::error('Khalti Initiation Error', ['data' => $data]);
+        return back()->with('error', $data['detail'] ?? 'Khalti initiation failed.');
     }
 
     public function success(Request $request)
-    {
-        $pidx = $request->query('pidx');
+{
+    $pidx = $request->query('pidx');
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Key ' . env('KHALTI_SECRET_KEY'),
-            'Content-Type' => 'application/json',
-        ])->post('https://dev.khalti.com/api/v2/epayment/lookup/', [
-            "pidx" => $pidx
-        ]);
+    // Get the order ID directly from the URL parameters sent by Khalti
+    $orderId = $request->query('purchase_order_id'); 
 
-        $data = $response->json();
+    $response = Http::withHeaders([
+        'Authorization' => 'Key ' . $this->getSecretKey(),
+        'Content-Type' => 'application/json',
+    ])->post($this->getBaseUrl() . 'epayment/lookup/', [
+        "pidx" => $pidx
+    ]);
 
-        if (isset($data['status']) && $data['status'] == 'Completed') {
-            $order = Order::find($data['purchase_order_id']);
-            if ($order) {
-                $order->status = 'paid';
-                $order->pidx = $pidx;
-                $order->save();
-            }
+    $data = $response->json();
 
-            return redirect('/')->with('success', 'Payment successful');
+    if ($response->successful() && isset($data['status']) && $data['status'] === 'Completed') {
+        
+        // Use the $orderId we got from the Request query
+        $order = Order::find($orderId);
+        
+        if ($order) {
+            $order->update([
+                'status' => 'paid',
+                'pidx' => $pidx
+            ]);
         }
 
-        return redirect('/')->with('error', 'Payment verification failed');
+        return redirect('/')->with('success', 'Payment Successful for Order #' . $orderId);
     }
+
+    return redirect('/')->with('error', 'Payment verification failed.');
+}
 
     public function failure()
     {
-        return redirect('/')->with('error', 'Payment failed or cancelled');
+        return redirect('/')->with('error', 'Payment cancelled.');
     }
 }
