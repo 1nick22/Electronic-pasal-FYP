@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -27,8 +28,14 @@ class CartController extends Controller
         $cartTotal = $cartItems->sum(function ($item) {
             return $item->price * $item->quantity;
         });
+
+        // Fetch user's payment history with order items and product names
+        $payments = Payment::with('order.orderItems.product')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
         
-        return view('cart.index', compact('cartItems', 'cartTotal'));
+        return view('cart.index', compact('cartItems', 'cartTotal', 'payments'));
     }
 
     /**

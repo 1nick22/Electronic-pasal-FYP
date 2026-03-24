@@ -193,5 +193,91 @@
             </div>
         </div>
     @endif
+
+    {{-- ─── Transaction History ─── --}}
+    @if($payments->isNotEmpty())
+    <div class="mt-12">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                <span class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                </span>
+                Transaction History
+            </h2>
+            <p class="text-gray-500 mt-1 ml-13">Your past payment records</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            {{-- Table Header --}}
+            <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                <div class="col-span-3">Date & Time</div>
+                <div class="col-span-4">Products</div>
+                <div class="col-span-2 text-right">Amount</div>
+                <div class="col-span-3 text-center">Status</div>
+            </div>
+
+            {{-- Transaction Rows --}}
+            @foreach($payments as $payment)
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 border-b border-gray-50 hover:bg-gray-50 transition-colors last:border-b-0 items-center">
+
+                {{-- Date & Time --}}
+                <div class="col-span-3">
+                    <span class="font-semibold text-gray-800 text-sm">
+                        {{ $payment->created_at->format('M d, Y') }}
+                    </span>
+                    <span class="block text-xs text-gray-400 mt-0.5">
+                        {{ $payment->created_at->format('h:i A') }}
+                    </span>
+                </div>
+
+                {{-- Products --}}
+                <div class="col-span-4">
+                    @if($payment->order && $payment->order->orderItems->isNotEmpty())
+                        <div class="space-y-1">
+                            @foreach($payment->order->orderItems as $item)
+                                <div class="text-sm text-gray-700">
+                                    <span class="font-medium">{{ $item->product->name ?? 'Deleted Product' }}</span>
+                                    <span class="text-gray-400">&times; {{ $item->quantity }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <span class="text-sm text-gray-400 italic">No items found</span>
+                    @endif
+                </div>
+
+                {{-- Amount --}}
+                <div class="col-span-2 text-right">
+                    <span class="font-bold text-gray-800">Rs. {{ number_format($payment->amount, 2) }}</span>
+                </div>
+
+                {{-- Status Badge --}}
+                <div class="col-span-3 flex justify-center">
+                    @if($payment->status === 'completed')
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                            Completed
+                        </span>
+                    @elseif($payment->status === 'pending')
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-yellow-50 text-yellow-700 border border-yellow-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
+                            Pending
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                            Failed
+                        </span>
+                    @endif
+                </div>
+
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
 </div>
 @endsection
