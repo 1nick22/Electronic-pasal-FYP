@@ -75,7 +75,6 @@ class KhaltiController extends Controller
             if ($order) {
                 $order->update([
                     'status' => 'paid',
-                    'pidx'   => $pidx,
                 ]);
 
                 // Update the pending Payment record created in initiate()
