@@ -58,13 +58,13 @@
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                     <div class="mb-4 sm:mb-0">
                         <h1 class="text-2xl font-bold text-gray-800">{{ $categoryName }}</h1>
-                        <p class="text-sm text-gray-500 mt-1">Showing {{ $products->count() }} results</p>
+                        <p class="text-sm text-gray-500 mt-1" id="resultCountText">Showing {{ $products->count() }} results</p>
                     </div>
                     
                     <div class="flex items-center space-x-3 w-full sm:w-auto">
                         <!-- Search Form -->
                         <div class="relative w-full sm:w-64">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..." 
+                            <input type="text" id="searchInput" autocomplete="off" name="search" value="{{ request('search') }}" placeholder="Search products..." 
                                 class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@
                 @else
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($products as $product)
-                            <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+                            <div class="product-item group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col" data-name="{{ strtolower($product->name) }}" data-category="{{ strtolower($product->category->name ?? '') }}">
                                 <!-- Fixed Aspect Ratio Image Container -->
                                 <div class="relative aspect-[4/5] overflow-hidden">
                                     <div class="absolute inset-0 flex items-center justify-center">
@@ -167,4 +167,44 @@
         </div>
     </form>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const productItems = document.querySelectorAll('.product-item');
+        const resultCountText = document.getElementById('resultCountText');
+        
+        if (searchInput) {
+            // Prevent form submission on enter
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                productItems.forEach(item => {
+                    const name = item.getAttribute('data-name') || '';
+                    const category = item.getAttribute('data-category') || '';
+                    
+                    if (name.includes(searchTerm) || category.includes(searchTerm)) {
+                        item.style.display = '';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                if (resultCountText) {
+                    resultCountText.textContent = `Showing ${visibleCount} results`;
+                }
+            });
+        }
+    });
+</script>
+@endpush
 @endsection
