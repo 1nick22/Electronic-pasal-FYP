@@ -48,16 +48,7 @@
                     </svg>
                     Orders
                 </a>
-                
-                 <!-- Placeholder for Profile -->
-                 <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-slate-700 hover:text-white rounded-lg transition-colors">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Profile
-                </a>
             </nav>
-
             <div class="p-4 border-t border-slate-700">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
