@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+
 
     // Khalti Routes
     Route::post('/khalti/initiate', [KhaltiController::class, 'initiate'])->name('khalti.initiate');

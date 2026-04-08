@@ -47,26 +47,57 @@
                         <div>
                             <span class="text-sm text-gray-500">Status</span>
                             <p>
-                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold
-                                    {{ $order->status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
+                                @php
+                                    $statusClasses = 'bg-yellow-100 text-yellow-700';
+                                    if($order->status === 'paid') $statusClasses = 'bg-green-100 text-green-700';
+                                    if($order->status === 'cancelled') $statusClasses = 'bg-red-100 text-red-700';
+                                @endphp
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold {{ $statusClasses }}">
                                     {{ ucfirst($order->status) }}
                                 </span>
                             </p>
                         </div>
 
-                        @if($order->status === 'pending')
+                        @if($order->status === 'pending' || $order->status === 'cancelled')
                         <div>
                             <span class="text-sm text-gray-500">Action</span>
-                            <form action="{{ route('khalti.initiate') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                <button type="submit"
-                                    class="inline-block bg-purple-600 text-white px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-purple-700 transition-colors">
+                            <div class="flex flex-wrap gap-2">
+                                {{-- Pay with Khalti Button --}}
+                                @if($order->status === 'pending')
+                                <form action="{{ route('khalti.initiate') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                    <button type="submit"
+                                        class="inline-block bg-purple-600 text-white px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-purple-700 transition-colors">
+                                        Pay with Khalti
+                                    </button>
+                                </form>
+                                @else
+                                <button disabled
+                                    class="inline-block bg-gray-300 text-gray-500 px-4 py-1.5 rounded-xl text-xs font-semibold cursor-not-allowed">
                                     Pay with Khalti
                                 </button>
-                            </form>
+                                @endif
+
+                                {{-- Cancel Order Button --}}
+                                @if($order->status === 'pending')
+                                <form action="{{ route('orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?')">
+                                    @csrf
+                                    <button type="submit"
+                                        class="inline-block bg-red-500 text-white px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-red-600 transition-colors">
+                                        Cancel Order
+                                    </button>
+                                </form>
+                                @else
+                                <button disabled
+                                    class="inline-block bg-gray-300 text-gray-500 px-4 py-1.5 rounded-xl text-xs font-semibold cursor-not-allowed">
+                                    Cancelled
+                                </button>
+                                @endif
+                            </div>
                         </div>
                         @endif
+
                     </div>
 
                     {{-- Order Items --}}

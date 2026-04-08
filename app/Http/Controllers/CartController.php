@@ -29,13 +29,21 @@ class CartController extends Controller
             return $item->price * $item->quantity;
         });
 
-        // Fetch user's payment history with order items and product names
-        $payments = Payment::with('order.orderItems.product')
+        // Fetch user's pending orders
+        $pendingOrders = Order::with('orderItems.product')
             ->where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
+
+        // Fetch user's order history (Paid, Failed, Cancelled)
+        $orderHistory = Order::with('orderItems.product')
+            ->where('user_id', $user->id)
+            ->where('status', '!=', 'pending')
             ->latest()
             ->get();
         
-        return view('cart.index', compact('cartItems', 'cartTotal', 'payments'));
+        return view('cart.index', compact('cartItems', 'cartTotal', 'pendingOrders', 'orderHistory'));
     }
 
     /**
@@ -153,6 +161,6 @@ class CartController extends Controller
 
         $cart->items()->delete();
 
-        return redirect()->route('orders.index')->with('success', 'Order placed successfully!');
+        return redirect()->route('cart.index')->with('success', 'Order placed successfully!');
     }
 }

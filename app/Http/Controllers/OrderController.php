@@ -22,4 +22,33 @@ class OrderController extends Controller
 
         return view('orders.index', compact('orders'));
     }
+
+    /**
+     * Cancel the specified order.
+     */
+    public function cancel(Order $order)
+    {
+        // Ensure the order belongs to the user
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        // Only allow cancelling pending orders
+        if ($order->status !== 'pending') {
+            return back()->with('error', 'Only pending orders can be cancelled.');
+        }
+
+        // Restore product stock
+        foreach ($order->orderItems as $item) {
+            if ($item->product) {
+                $item->product->increment('stock', $item->quantity);
+            }
+        }
+
+        // Update status to cancelled
+        $order->update(['status' => 'cancelled']);
+
+        return back()->with('success', 'Order cancelled successfully.');
+    }
 }
+

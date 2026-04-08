@@ -11,6 +11,67 @@
         <p class="text-gray-500 mt-1">Review your items and proceed to checkout</p>
     </div>
 
+    {{-- ─── Pending Orders Section ─── --}}
+    @if($pendingOrders->isNotEmpty())
+    <div class="mb-12">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                <span class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </span>
+                Pending Orders
+            </h2>
+            <p class="text-gray-500 mt-1 ml-13">Orders waiting for payment</p>
+        </div>
+
+        <div class="grid gap-4">
+            @foreach($pendingOrders as $order)
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:border-purple-200 transition-colors">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 px-6 py-5">
+                    <div class="flex flex-wrap items-center gap-6 flex-1">
+                        <div>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-0.5">Order ID</span>
+                            <span class="font-bold text-gray-800">#{{ $order->id }}</span>
+                        </div>
+                        <div class="min-w-[200px]">
+                            <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-0.5">Items</span>
+                            <div class="text-sm text-gray-600 line-clamp-1">
+                                {{ $order->orderItems->map(fn($item) => ($item->product->name ?? 'Product') . ' (x' . $item->quantity . ')')->implode(', ') }}
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 uppercase font-bold tracking-widest block mb-0.5">Total Amount</span>
+                            <span class="font-bold text-gray-900">Rs. {{ number_format($order->total_price, 2) }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <form action="{{ route('khalti.initiate') }}" method="POST" class="flex-1 md:flex-none">
+                            @csrf
+                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+                            <button type="submit" class="w-full px-5 py-2.5 bg-purple-600 text-white text-xs font-bold rounded-xl hover:bg-purple-700 transition shadow-sm flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                Pay Now
+                            </button>
+                        </form>
+                        <form action="{{ route('orders.cancel', $order->id) }}" method="POST" class="flex-1 md:flex-none" onsubmit="return confirm('Are you sure you want to cancel this order?')">
+                            @csrf
+                            <button type="submit" class="w-full px-5 py-2.5 border border-red-100 text-red-500 text-xs font-bold rounded-xl hover:bg-red-50 transition flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                Cancel
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="border-t border-gray-100 my-10"></div>
+    @endif
+
     {{-- Success Alert --}}
     @if(session('success'))
         <div id="flash-success" class="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 rounded-xl px-5 py-4 mb-6 shadow-sm">
@@ -195,7 +256,7 @@
     @endif
 
     {{-- ─── Transaction History ─── --}}
-    @if($payments->isNotEmpty())
+    @if($orderHistory->isNotEmpty())
     <div class="mt-12">
         <div class="mb-6">
             <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
@@ -204,73 +265,74 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                     </svg>
                 </span>
-                Transaction History
+                Order History
             </h2>
-            <p class="text-gray-500 mt-1 ml-13">Your past payment records</p>
+            <p class="text-gray-500 mt-1 ml-13">Details of your past orders</p>
         </div>
 
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             {{-- Table Header --}}
             <div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                 <div class="col-span-3">Date & Time</div>
-                <div class="col-span-4">Products</div>
+                <div class="col-span-4">Items Summary</div>
                 <div class="col-span-2 text-right">Amount</div>
                 <div class="col-span-3 text-center">Status</div>
             </div>
 
             {{-- Transaction Rows --}}
-            @foreach($payments as $payment)
+            @foreach($orderHistory as $order)
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 border-b border-gray-50 hover:bg-gray-50 transition-colors last:border-b-0 items-center">
 
                 {{-- Date & Time --}}
                 <div class="col-span-3">
                     <span class="font-semibold text-gray-800 text-sm">
-                        {{ $payment->created_at->format('M d, Y') }}
+                        {{ $order->created_at->format('M d, Y') }}
                     </span>
                     <span class="block text-xs text-gray-400 mt-0.5">
-                        {{ $payment->created_at->format('h:i A') }}
+                        {{ $order->created_at->format('h:i A') }}
                     </span>
                 </div>
 
                 {{-- Products --}}
                 <div class="col-span-4">
-                    @if($payment->order && $payment->order->orderItems->isNotEmpty())
-                        <div class="space-y-1">
-                            @foreach($payment->order->orderItems as $item)
-                                <div class="text-sm text-gray-700">
-                                    <span class="font-medium">{{ $item->product->name ?? 'Deleted Product' }}</span>
-                                    <span class="text-gray-400">&times; {{ $item->quantity }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <span class="text-sm text-gray-400 italic">No items found</span>
-                    @endif
+                    <div class="space-y-1">
+                        @foreach($order->orderItems as $item)
+                            <div class="text-sm text-gray-700">
+                                <span class="font-medium text-gray-800">{{ $item->product->name ?? 'Product' }}</span>
+                                <span class="text-gray-400">/ {{ $item->quantity }} {{ Str::plural('unit', $item->quantity) }}</span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
                 {{-- Amount --}}
                 <div class="col-span-2 text-right">
-                    <span class="font-bold text-gray-800">Rs. {{ number_format($payment->amount, 2) }}</span>
+                    <span class="font-bold text-gray-800">Rs. {{ number_format($order->total_price, 2) }}</span>
                 </div>
 
                 {{-- Status Badge --}}
                 <div class="col-span-3 flex justify-center">
-                    @if($payment->status === 'completed')
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                            Completed
-                        </span>
-                    @elseif($payment->status === 'pending')
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-yellow-50 text-yellow-700 border border-yellow-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
-                            Pending
-                        </span>
-                    @else
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                            Failed
-                        </span>
-                    @endif
+                    @php
+                        $status = strtolower($order->status);
+                        $badgeClasses = 'bg-gray-50 text-gray-700 border-gray-200';
+                        $dotColor = 'bg-gray-400';
+                        $label = ucfirst($status);
+
+                        if($status === 'paid') {
+                            $badgeClasses = 'bg-green-50 text-green-700 border-green-200';
+                            $dotColor = 'bg-green-500';
+                        } elseif($status === 'cancelled') {
+                            $badgeClasses = 'bg-red-50 text-red-700 border-red-200';
+                            $dotColor = 'bg-red-500';
+                        } elseif($status === 'failed') {
+                            $badgeClasses = 'bg-rose-50 text-rose-700 border-rose-200';
+                            $dotColor = 'bg-rose-500';
+                        }
+                    @endphp
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $badgeClasses }} border">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $dotColor }}"></span>
+                        {{ $label }}
+                    </span>
                 </div>
 
             </div>
