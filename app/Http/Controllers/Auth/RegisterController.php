@@ -30,10 +30,13 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
+            'last_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)->letters()->numbers()->symbols()],
+        ], [
+            'first_name.regex' => 'The first name may only contain letters.',
+            'last_name.regex' => 'The last name may only contain letters.',
         ]);
 
         $user = User::create([
